@@ -3,7 +3,7 @@ var router = express.Router();
 const areas = require("../models/areas");
 const db = require("../components/db");
 
-//
+// 주소 DB 구축용
 router.post("/", async function (req, res, next) {
   try {
     const connection = await db.getConnection();
