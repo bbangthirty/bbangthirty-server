@@ -6,11 +6,43 @@ const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-dotenv.config();
+dotenv.config({ path: `config/.env.${process.env.NODE_ENV}` });
 const areasRouter = require("./routes/areas");
 const usersRouter = require("./routes/users");
 
 const app = express();
+
+// swagger
+var swaggerUi = require("swagger-ui-express");
+var swaggerJSDoc = require("swagger-jsdoc");
+const swaggerDefinition = {
+  info: {
+    title: "빵떠리 Server API",
+    version: "1.0",
+    decription: "API description",
+  },
+  host: "localhost:80", //'52.78.52.247'
+  basePath: "/",
+  securityDefinitions: {
+    bearerAuth: {
+      type: "apiKey",
+      name: "Authorization",
+      scheme: "bearer",
+      in: "header",
+    },
+  },
+};
+const options = {
+  swaggerDefinition,
+  apis: ["./schemas/*.js"],
+};
+
+const swaggerSpec = swaggerJSDoc(options);
+app.get("/swagger.json", (req, res) => {
+  res.setHeader("Content-type", "application/json");
+  res.send(swaggerSpec);
+});
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(cors());
 app.use(morgan("dev"));
