@@ -12,6 +12,12 @@ const usersRouter = require("./routes/users");
 
 const app = express();
 
+app.use(cors());
+
+// view engine setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "jade");
+
 // swagger
 var swaggerUi = require("swagger-ui-express");
 var swaggerJSDoc = require("swagger-jsdoc");
@@ -44,7 +50,6 @@ app.get("/swagger.json", (req, res) => {
 });
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
