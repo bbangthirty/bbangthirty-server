@@ -3,14 +3,44 @@ var router = express.Router();
 const areas = require("../models/areas");
 const db = require("../components/db");
 
-router.get("/", async function (req, res, next) {
+//
+router.post("/", async function (req, res, next) {
   try {
-    const { user_idx } = req.query;
     const connection = await db.getConnection();
-    const results = await users.getList(connection, { user_idx: user_idx });
+    await db.beginTransaction(connection);
+    const results = await areas.insertJibunList(connection);
+    await db.commit(connection);
     res.status(200).json({ results });
   } catch (err) {
-    console.log("users get error : ", err);
+    console.log("areas post error : ", err);
+    next();
+  }
+});
+
+// 동네검색 기능
+router.get("/search", async function (req, res, next) {
+  try {
+    const { name } = req.query;
+    const connection = await db.getConnection();
+    await db.beginTransaction(connection);
+    const results = await areas.areaListByName(connection, { name: name });
+    await db.commit(connection);
+    res.status(200).json({ results });
+  } catch (err) {
+    console.log("areas search error : ", err);
+    next();
+  }
+});
+
+router.get("/test", async function (req, res, next) {
+  try {
+    const connection = await db.getConnection();
+    await db.beginTransaction(connection);
+    const results = await areas.getList(connection);
+    await db.commit(connection);
+    res.status(200).json({ results });
+  } catch (err) {
+    console.log("areas search error : ", err);
     next();
   }
 });
