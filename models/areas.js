@@ -22,11 +22,3 @@ module.exports.areaListByName = async (connection, options) => {
     values: values,
   });
 };
-
-module.exports.getList = async (connection, options) => {
-  let query = `select * from areas GROUP BY sido_name`;
-
-  return await db.query(connection, {
-    query: query,
-  });
-};

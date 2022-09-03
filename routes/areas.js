@@ -32,17 +32,4 @@ router.get("/search", async function (req, res, next) {
   }
 });
 
-router.get("/test", async function (req, res, next) {
-  try {
-    const connection = await db.getConnection();
-    await db.beginTransaction(connection);
-    const results = await areas.getList(connection);
-    await db.commit(connection);
-    res.status(200).json({ results });
-  } catch (err) {
-    console.log("areas search error : ", err);
-    next();
-  }
-});
-
 module.exports = router;
