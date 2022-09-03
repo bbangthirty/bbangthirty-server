@@ -21,7 +21,7 @@ const swaggerDefinition = {
     version: "1.0",
     decription: "API description",
   },
-  host: "localhost:80", //'52.78.52.247'
+  host: "52.78.52.247", //'52.78.52.247'
   basePath: "/",
   securityDefinitions: {
     bearerAuth: {
