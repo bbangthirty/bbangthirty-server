@@ -19,6 +19,7 @@ module.exports.getConnection = () => {
     });
   });
 };
+
 module.exports.beginTransaction = (connection) => {
   return new Promise((resolve, reject) => {
     connection.beginTransaction(function (err) {
