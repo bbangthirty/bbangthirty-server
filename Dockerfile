@@ -21,4 +21,4 @@ EXPOSE 8080
 
 # pm2-runtime으로 실행 
 # CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]
-CMD ["npm", "run", "prod"]
+CMD ["npm", "run", "dev"]
