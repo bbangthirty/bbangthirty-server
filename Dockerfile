@@ -6,7 +6,6 @@ WORKDIR /home/node/app
 COPY package*.json ./
 RUN npm install
 
-RUN npm install -g nodemon
 # 프로덕션을 위한 코드를 빌드하는 경우
 # RUN npm ci --only=production
 # ENV NODE_ENV production
@@ -20,4 +19,4 @@ EXPOSE 3000
 
 # pm2-runtime으로 실행 
 # CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]
-CMD npm run dev
+CMD [ "npm", "start" ]
