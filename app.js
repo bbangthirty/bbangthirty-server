@@ -25,7 +25,7 @@ var swaggerJSDoc = require("swagger-jsdoc");
 let host;
 if (process.env.NODE_ENV === "dev") {
   host = "localhost:3000";
-} else host = "52.78.52.247";
+} else host = "localhost:80"; // "52.78.52.247"
 
 const swaggerDefinition = {
   info: {

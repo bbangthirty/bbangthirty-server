@@ -7,7 +7,7 @@ on:
 
 # 환경설정
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/bbangthirty-node
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/bbang-backend
   VERSION: ${{ github.sha }}
   NAME: go_cicd
 
