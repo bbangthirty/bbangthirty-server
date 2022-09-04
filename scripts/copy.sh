@@ -1,5 +1,5 @@
 #파일 복사
-
+docker 테스트
 
 #서버 접속
 ssh -i "first-sg-key.pem" ubuntu@ec2-52-78-52-247.ap-northeast-2.compute.amazonaws.com
