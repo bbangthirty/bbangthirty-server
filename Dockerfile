@@ -19,4 +19,4 @@ EXPOSE 3000
 
 # pm2-runtime으로 실행 
 # CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "prod" ]
