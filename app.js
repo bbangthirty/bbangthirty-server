@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 
 dotenv.config({ path: `config/.env.${process.env.NODE_ENV}` });
+const indexRouter = require("./routes/index");
 const areasRouter = require("./routes/areas");
 const usersRouter = require("./routes/users");
 
@@ -21,13 +22,18 @@ app.set("view engine", "jade");
 // swagger
 var swaggerUi = require("swagger-ui-express");
 var swaggerJSDoc = require("swagger-jsdoc");
+let host;
+if (process.env.NODE_ENV === "dev") {
+  host = "localhost:3000";
+} else host = "52.78.52.247";
+
 const swaggerDefinition = {
   info: {
     title: "빵떠리 Server API",
     version: "1.0",
     decription: "API description",
   },
-  host: "52.78.52.247", //'52.78.52.247'
+  host: host,
   basePath: "/",
   securityDefinitions: {
     bearerAuth: {
@@ -56,6 +62,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/", indexRouter);
 app.use("/areas", areasRouter);
 app.use("/users", usersRouter);
 

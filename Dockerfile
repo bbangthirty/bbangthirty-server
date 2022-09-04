@@ -1,7 +1,7 @@
 FROM node:16.17.0
 
 # 앱 디렉터리 생성
-WORKDIR /usr/src/app
+WORKDIR /home/node/app
 
 COPY package*.json ./
 RUN npm install
