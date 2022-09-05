@@ -57,8 +57,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
-      # 3000 -> 80 포트로 수행하도록 지정
+      # Github Secrets를 이용하여 env 파일을 만들고 추가
       - name: Docker run
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -d -p 80:80 -e MYSQL_HOST=${{ secrets.MYSQL_HOST }} -e MYSQL_PORT=${{ secrets.MYSQL_PORT }} -e MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }} -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} -e MYSQL_DB=${{ secrets.MYSQL_DB }} -e MYSQL_LIMIT=${{ secrets.MYSQL_LIMIT }} --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker run -d -p 80:80 -e ${{ secrets.DOTENV }} --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
