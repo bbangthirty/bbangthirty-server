@@ -10,6 +10,7 @@ env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}/bbangthirty-node
   VERSION: ${{ github.sha }}
   NAME: go_cicd
+  dotenv: ${{ secrets.DOTENV }}
 
 jobs:
   # 빌드 Job
@@ -60,4 +61,4 @@ jobs:
       - name: Docker run
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run -d -p 3000:3000 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker run -d -p 80:80 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest

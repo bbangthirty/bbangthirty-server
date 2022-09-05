@@ -15,7 +15,7 @@ COPY . .
 
 # 아래 포트로 매핑
 ENV HOST 0.0.0.0
-EXPOSE 3000
+EXPOSE 80
 
 # pm2-runtime으로 실행 
 # CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]
