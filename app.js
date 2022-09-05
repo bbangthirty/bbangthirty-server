@@ -6,7 +6,8 @@ const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-dotenv.config({ path: `config/.env.${process.env.NODE_ENV}` });
+// dotenv.config({ path: `config/.env.${process.env.NODE_ENV}` });
+dotenv.config();
 const indexRouter = require("./routes/index");
 const areasRouter = require("./routes/areas");
 const usersRouter = require("./routes/users");

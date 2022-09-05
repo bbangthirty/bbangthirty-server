@@ -10,7 +10,6 @@ env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}/bbangthirty-node
   VERSION: ${{ github.sha }}
   NAME: go_cicd
-  dotenv: ${{ secrets.DOTENV }}
 
 jobs:
   # 빌드 Job
@@ -20,6 +19,12 @@ jobs:
     steps:
       # github repository에서 checkout
       - uses: actions/checkout@v2
+      # Github Repository Secrets를 통해 환경 변수 파일을 생성합니다.
+      - name: Generate Environment Variables File for Production
+        env:
+          DOTENV: ${{ secrets.DOTENV }}
+        run: |
+          echo "DOTENV=$DOTENV" >> .env
       # docker build 수행
       - name: Set up docker buildx
         id: buildx
