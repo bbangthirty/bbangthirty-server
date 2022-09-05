@@ -61,4 +61,4 @@ jobs:
       - name: Docker run
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
-          docker run --env-file ${{ secrets.DOTENV }} -d -p 80:80 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker run -e MYSQL_HOST=${{ secrets.MYSQL_HOST }} MYSQL_PORT=${{ secrets.MYSQL_PORT }} MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }} MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} MYSQL_DB=${{ secrets.MYSQL_DB }}MYSQL_LIMIT=${{ secrets.MYSQL_LIMIT }} -d -p 80:80 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
