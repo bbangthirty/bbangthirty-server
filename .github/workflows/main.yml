@@ -19,6 +19,8 @@ jobs:
     steps:
       # github repository에서 checkout
       - uses: actions/checkout@v2
+      - run: ls -al
+      - run: cat .github/workflows/checkout.yml
       # Github Repository Secrets를 통해 환경 변수 파일을 생성합니다.
       - name: Generate Environment Variables File for Production
         env:
