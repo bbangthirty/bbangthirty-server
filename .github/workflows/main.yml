@@ -26,6 +26,7 @@ jobs:
           DOTENV: ${{ secrets.DOTENV }}
         run: |
           echo "DOTENV=$DOTENV" >> .env
+      - run: ls -al
       # docker build 수행
       - name: Set up docker buildx
         id: buildx
