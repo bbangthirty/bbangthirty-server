@@ -22,10 +22,10 @@ app.set("view engine", "jade");
 // swagger
 var swaggerUi = require("swagger-ui-express");
 var swaggerJSDoc = require("swagger-jsdoc");
-// let host;
-// if (process.env.NODE_ENV === "dev") {
-//   host = "localhost:3000";
-// } else host = "52.78.52.247";
+let host;
+if (process.env.NODE_ENV === "dev") {
+  host = "localhost:3000";
+} else host = "52.78.52.247";
 
 const swaggerDefinition = {
   info: {
@@ -33,7 +33,7 @@ const swaggerDefinition = {
     version: "1.0",
     decription: "API description",
   },
-  host: "52.78.52.247",
+  host: host,
   basePath: "/",
   securityDefinitions: {
     bearerAuth: {
