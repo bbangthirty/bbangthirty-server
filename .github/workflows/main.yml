@@ -23,9 +23,19 @@ jobs:
       # Github Repository Secrets를 통해 환경 변수 파일을 생성합니다.
       - name: Generate Environment Variables File for Production
         env:
-          DOTENV: ${{ secrets.DOTENV }}
+          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+          MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DB: ${{ secrets.MYSQL_DB }}
+          MYSQL_LIMIT: ${{ secrets.MYSQL_LIMIT }}
         run: |
-          echo "$DOTENV" >> .env
+          echo "MYSQL_HOST=$MYSQL_HOST" >> .env
+          echo "MYSQL_PORT=$MYSQL_PORT" >> .env
+          echo "MYSQL_USERNAME=$MYSQL_USERNAME" >> .env
+          echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
+          echo "MYSQL_DB=$MYSQL_DB" >> .env
+          echo "MYSQL_LIMIT=$MYSQL_LIMIT" >> .env
       - run: ls -al
       # docker build 수행
       - name: Set up docker buildx
