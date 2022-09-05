@@ -37,6 +37,7 @@ jobs:
           echo "MYSQL_DB=$MYSQL_DB" >> .env
           echo "MYSQL_LIMIT=$MYSQL_LIMIT" >> .env
       - run: ls -al
+      - run: vim .env
       # docker build 수행
       - name: Set up docker buildx
         id: buildx
