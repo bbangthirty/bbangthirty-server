@@ -3,14 +3,19 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const path = require("path");
-const dotenv = require("dotenv");
 const cors = require("cors");
+const session = require("express-session");
+const dotenv = require("dotenv");
+const passport = require("passport");
 
-// dotenv.config({ path: `config/.env.${process.env.NODE_ENV}` });
-dotenv.config();
+if (process.env.NODE_ENV === "dev") {
+  dotenv.config({ path: `config/.env.dev` });
+} else dotenv.config();
+
 const indexRouter = require("./routes/index");
 const areasRouter = require("./routes/areas");
 const usersRouter = require("./routes/users");
+const myAreasRouter = require("./routes/myAreas");
 
 const app = express();
 
@@ -21,8 +26,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 // swagger
-var swaggerUi = require("swagger-ui-express");
-var swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJSDoc = require("swagger-jsdoc");
 let host;
 if (process.env.NODE_ENV === "dev") {
   host = "localhost:3000";
@@ -56,16 +61,18 @@ app.get("/swagger.json", (req, res) => {
   res.send(swaggerSpec);
 });
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+//
 
 app.use(morgan("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use("/", indexRouter);
 app.use("/areas", areasRouter);
 app.use("/users", usersRouter);
+app.use("/myAreas", myAreasRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -76,7 +83,7 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = process.env.NODE_ENV !== "prod" ? err : {};
 
   // render the error page
   res.status(err.status || 500);
