@@ -9,16 +9,13 @@ module.exports.insertJibunList = async (connection, options) => {
 
 // 동네검색 기능
 module.exports.areaListByName = async (connection, options) => {
-  let query = `SELECT area_idx, CONCAT(sido_name," ",sigg_name," ",emd_name)  AS area FROM areas`;
+  let query = `SELECT area_id, CONCAT(sido_name," ",sigg_name," ",emd_name)  AS area FROM areas`;
   let values = [];
   if (options) {
-    if (options.name) {
+    if (options.areaName) {
       query += ` WHERE CONCAT(sido_name," ",sigg_name," ",emd_name) REGEXP ?`;
-      values.push(options.name);
+      values.push(options.areaName);
     }
   }
-  return await db.query(connection, {
-    query: query,
-    values: values,
-  });
+  return await db.query(connection, { query: query, values: values });
 };
