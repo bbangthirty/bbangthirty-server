@@ -8,9 +8,11 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 const passport = require("passport");
 
-if (process.env.NODE_ENV === "dev") {
-  dotenv.config({ path: `config/.env.dev` });
-} else dotenv.config();
+// if (process.env.NODE_ENV === "dev") {
+//   dotenv.config({ path: `config/.env.dev` });
+// } else
+
+dotenv.config();
 
 const indexRouter = require("./routes/index");
 const areasRouter = require("./routes/areas");
