@@ -16,6 +16,7 @@ const indexRouter = require("./routes/index");
 const areasRouter = require("./routes/areas");
 const usersRouter = require("./routes/users");
 const myAreasRouter = require("./routes/myAreas");
+const passsportConfing = require("./components/passport");
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.use(cors());
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
+
+passsportConfing();
 
 // swagger
 const swaggerUi = require("swagger-ui-express");
@@ -68,8 +71,22 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
+  })
+);
+// express session 보다 아래에 위치시켜야 한다. passport에서 express session에 세션을 저장했기 때문에 받아서 처리해야 하기 때문
+app.use(passport.initialize());
+app.use(passport.session()); // 로그인 이후 이 부분 실행될때 passport index deserializeUser 실행
 
-app.use("/", indexRouter);
+app.use("/index", indexRouter);
 app.use("/areas", areasRouter);
 app.use("/users", usersRouter);
 app.use("/myAreas", myAreasRouter);
