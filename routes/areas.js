@@ -1,10 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const areas = require("../models/areas");
 const db = require("../components/db");
 
 // 주소 DB 구축용
-router.post("/", async function (req, res, next) {
+router.post("/", async (req, res, next) => {
   try {
     const connection = await db.getConnection();
     await db.beginTransaction(connection);
@@ -18,13 +18,13 @@ router.post("/", async function (req, res, next) {
 });
 
 // 동네검색 기능
-router.get("/search", async function (req, res, next) {
+router.get("/search/:areaName", async (req, res, next) => {
   try {
-    const { name } = req.query;
+    const areaName = decodeURIComponent(req.params.areaName);
     const connection = await db.getConnection();
-    await db.beginTransaction(connection);
-    const results = await areas.areaListByName(connection, { name: name });
-    await db.commit(connection);
+    const results = await areas.areaListByName(connection, { areaName });
+    console.log(results);
+    connection.release();
     res.status(200).json({ results });
   } catch (err) {
     console.log("areas search error : ", err);
