@@ -9,7 +9,7 @@
  *     parameters:
  *       - name: areaName
  *         in: path
- *         description: 동명(읍,면)으로 검색(ex.호계동)
+ *         description: 동명(읍,면)으로 검색
  *         required: true
  *         type: string
  *     responses:
