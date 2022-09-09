@@ -1,14 +1,14 @@
 /**
  * @swagger
- * /areas/search:
+ * /areas/search/{areaName}:
  *   get:
  *     tags:
  *       - 동네 검색
  *     name: Get area
  *     summary: Get area
  *     parameters:
- *       - name: name
- *         in: query
+ *       - name: areaName
+ *         in: path
  *         description: 동명(읍,면)으로 검색(ex.호계동)
  *         required: true
  *         type: string
