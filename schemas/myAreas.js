@@ -28,6 +28,22 @@
  *       '404':
  *         description: 동네등록 실패
  *
+ *   delete:
+ *     tags:
+ *       - myAreas
+ *     name: 등록된 동네를 취소합니다.
+ *     summary: 등록된 동네를 취소합니다.
+ *     parameters:
+ *       - name: my_area_id
+ *         in: path
+ *         required: true
+ *         type: number
+ *     responses:
+ *       '200':
+ *         description: 등록된 동네 취소 완료
+ *       '404':
+ *         description: 등록된 동네 취소 실패
+ *
  * /myAreas/{user_id}:
  *   get:
  *     tags:

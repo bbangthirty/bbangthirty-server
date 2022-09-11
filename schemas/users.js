@@ -106,13 +106,10 @@
  *     name: 회원탈퇴
  *     summary: 회원탈퇴
  *     parameters:
- *       - name: user_idx
- *         in: formData
+ *       - name: user_id
+ *         in: path
  *         required: true
- *         schema:
- *           type: object
- *           properties:
- *
+ *         type: number
  *     responses:
  *       '200':
  *         description: 회원탈퇴 완료
