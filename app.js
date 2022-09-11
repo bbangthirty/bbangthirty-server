@@ -86,7 +86,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session()); // 로그인 이후 이 부분 실행될때 passport index deserializeUser 실행
 
-app.use("/index", indexRouter);
+app.use("/", indexRouter);
 app.use("/areas", areasRouter);
 app.use("/users", usersRouter);
 app.use("/myAreas", myAreasRouter);
