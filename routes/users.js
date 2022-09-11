@@ -25,8 +25,8 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
     const result = await users.insertUserInfo(connection, user_info);
     console.log("result: ", result);
     await db.commit(connection);
-    res.status(200).json({ result });
-    // return res.redirect("/");
+    // res.status(200).json({ result });
+    res.redirect("/");
   } catch (err) {
     console.log("join error : ", err);
     next();
@@ -37,34 +37,36 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
 router.post("/login", isNotLoggedIn, async (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
     // local까지 실행되고 passport.localStrategy-> done으로 복귀
-    console.log("user:", user);
+    // console.log("user:", user);
     if (authError) {
       console.error(authError);
       return next(authError);
     }
     if (!user) {
-      return res.redirect(`/?loginError=${info.message}`);
+      return res.redirect(`/login?error=${info.message}`);
     }
     //passport.authenticate() 미들웨어는 req.login()을 자동으로 호출
     return req.login(user, async (loginError) => {
+      console.log("req.session:", req.session);
       //req.login 하는 순간 passport.index serializeUser 실행
       if (loginError) {
         console.error(loginError);
         return next(loginError);
       }
       // 이쯤 숨겨진 과정 : 세션 쿠키를 브라우저로 보내준다.
-      delete user.user_pwd;
-      delete user.salt;
-      delete user.created_at;
-      delete user.updated_at;
-      delete user.deleted_at;
-      res.status(200).json({ result: user });
+      // delete user.user_pwd;
+      // delete user.salt;
+      // delete user.created_at;
+      // delete user.updated_at;
+      // delete user.deleted_at;
+      // res.status(200).json({ result: user });
+      res.redirect("/");
     });
   })(req, res, next); // 미들웨어 확장) 미들웨어 내의 미들웨어에는 (req, res, next)를 붙인다.
 });
 
 // 카카오 로그인
-router.get("/kakao", passport.authenticate("kakao")); // 이거 실행하면 카카오톡 홈페이지가서 로그인하고 콜백 받아서 돌아옴
+router.get("/kakao", isNotLoggedIn, passport.authenticate("kakao")); // 이거 실행하면 카카오톡 홈페이지가서 로그인하고 콜백 받아서 돌아옴
 
 router.get(
   "/kakao/callback",
@@ -88,12 +90,17 @@ router.get("/logout", isLoggedIn, (req, res) => {
 });
 
 // 회원정보 수정
-router.put("/", async (req, res, next) => {
+router.put("/", isLoggedIn, async (req, res, next) => {
+  console.log("req.isAuthenticated", req.isAuthenticated());
+  console.log("req.user", req.user);
   try {
-    const { user_info } = req.body;
+    const { user_nickname, user_mail } = req.body; // body 통채로 받아서 넣으면 비번 강제 입력 공격에 위험할 것 같아서 이렇게 처리
+    const user_info = { user_nickname: user_nickname, user_mail: user_mail };
+    const user_id = req.user[0].user_id;
+    console.log(user_id);
     const connection = await db.getConnection();
     await db.beginTransaction(connection);
-    const result = await users.updateUserInfo(connection, user_info);
+    const result = await users.updateUserInfo(connection, user_info, user_id);
     await db.commit(connection);
     res.status(200).json({ result });
   } catch (err) {
@@ -103,7 +110,7 @@ router.put("/", async (req, res, next) => {
 });
 
 // 회원탈퇴
-router.delete("/:user_id", async (req, res, next) => {
+router.delete("/:user_id", isLoggedIn, async (req, res, next) => {
   try {
     const { user_id } = req.params;
     const connection = await db.getConnection();
@@ -124,15 +131,15 @@ router.get("/:user_id", async (req, res, next) => {
     const connection = await db.getConnection();
     const userList = await users.getUserList(connection, { user_id: user_id });
     console.log("userList ", userList);
-    if (userList.deleted_at !== null) {
-      return res.status(404).json({ errorMessage: "User deleted" });
+    connection.release;
+    if (!userList.deleted_at === null) {
+      return res.status(404).json({ errorMessage: "user deleted" });
     }
     delete userList[0].user_pwd;
     delete userList[0].salt;
     delete userList[0].created_at;
     delete userList[0].updated_at;
     delete userList[0].deleted_at;
-    connection.release;
     res.status(200).json({ userList });
   } catch (err) {
     console.log("get user error : ", err);
@@ -148,15 +155,16 @@ router.get("/", async (req, res, next) => {
     const userList = await users.getUserList(connection, {
       user_mail: user_mail,
     });
+    connection.release;
     console.log("userList ", userList);
-    if (userList.deleted_at !== null) {
-      return res.status(404).json({ errorMessage: "User deleted" });
+    if (!userList.deleted_at === null) {
+      return res.status(404).json({ errorMessage: "user deleted" });
     }
     delete userList[0].user_pwd;
     delete userList[0].salt;
     delete userList[0].created_at;
     delete userList[0].updated_at;
-    connection.release;
+    delete userList[0].deleted_at;
     res.status(200).json({ userList });
   } catch (err) {
     console.log("users get error : ", err);
