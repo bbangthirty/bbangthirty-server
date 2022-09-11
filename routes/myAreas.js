@@ -4,6 +4,7 @@ const myAreas = require("../models/myAreas");
 const db = require("../components/db");
 const { isLoggedIn, isNotLoggedIn } = require("../components/middlewares");
 
+// 유저의 등록된 동네 가져오기
 router.get("/:user_id", async function (req, res, next) {
   try {
     const { user_id } = req.params;
@@ -20,6 +21,7 @@ router.get("/:user_id", async function (req, res, next) {
   }
 });
 
+// 동네 등록
 router.post("/", async (req, res, next) => {
   try {
     const user_id = req.user[0].user_id;
@@ -27,13 +29,29 @@ router.post("/", async (req, res, next) => {
     const registArea = { user_id: user_id, area_id: area_id };
     const connection = await db.getConnection();
     await db.beginTransaction(connection);
-    const results = await myAreas.RegistAreaInfo(connection, registArea);
+    const result = await myAreas.RegistAreaInfo(connection, registArea);
     await db.commit(connection);
-    res.status(200).json({ results });
+    res.status(200).json({ result });
   } catch (err) {
-    console.log("areas post error : ", err);
+    console.log("post myAreas error : ", err);
     next();
   }
 });
 
+// 동네 등록 취소
+router.delete("/:my_area_id", async (req, res, next) => {
+  try {
+    const { my_area_id } = req.params;
+    const connection = await db.getConnection();
+    await db.beginTransaction(connection);
+    const result = await myAreas.deleteMyAreaInfo(connection, {
+      my_area_id: my_area_id,
+    });
+    await db.commit(connection);
+    res.status(200).json({ result });
+  } catch (err) {
+    console.log("delete myAreas error ", err);
+    next();
+  }
+});
 module.exports = router;
