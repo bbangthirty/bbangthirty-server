@@ -17,3 +17,9 @@ module.exports.RegistAreaInfo = async (connection, options) => {
   let values = options;
   return await db.query(connection, { query: query, values: values });
 };
+
+module.exports.deleteMyAreaInfo = async (connection, options) => {
+  let query = `DELETE FROM my_areas WHERE my_area_id = ?`;
+  let values = options.my_area_id;
+  return await db.query(connection, { query: query, values: values });
+};
