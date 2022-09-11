@@ -20,10 +20,11 @@ module.exports = () => {
             sns_id: profile.id,
             provider: "kakao",
           });
+          connection.release;
           let exUser = userList[0];
           console.log("exUser:", exUser);
           if (exUser) {
-            done(null, exUser);
+            return done(null, exUser);
           } else {
             // 없으면 빵떠리 회원가입 후 로그인
             const newUser = {
@@ -37,13 +38,11 @@ module.exports = () => {
             const result = await users.insertUserInfo(connection, newUser);
             console.log("result: ", result);
             await db.commit(connection);
-            res.status(200).json({ result });
-            // return res.redirect("/");
-            done(null, newUser);
+            return done(null, newUser);
           }
         } catch (error) {
           console.error(error);
-          done(error);
+          return done(error);
         }
       }
     )

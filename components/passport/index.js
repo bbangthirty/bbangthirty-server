@@ -13,13 +13,14 @@ module.exports = () => {
 
   // 세션 쿠키 :  { user_id: 3, 'connect.sid': s%3894723894723598}
 
-  passport.deserializeUser((user_id, done) => {
+  passport.deserializeUser(async (user_id, done) => {
+    console.log("user_id", user_id);
     // 필요할때 id정보로 유저정보 불러오고
-    const connection = db.getConnection();
-    users
-      .getUserList(connection, { user_id: user_id })
-      .then((user) => done(null, user)) // 유저 전체 복구 -> req.user로 접근 가능, req.isAuthenticated() -> 로그인했다면 true
-      .catch((err) => done(err));
+    const connection = await db.getConnection();
+    // 유저 전체 복구 -> req.user로 접근 가능, req.isAuthenticated() -> 로그인했다면 true
+    const userinfo = await users.getUserList(connection, { user_id: user_id });
+    console.log(userinfo);
+    done(null, userinfo);
   });
 
   local();
