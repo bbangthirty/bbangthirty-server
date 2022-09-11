@@ -3,9 +3,9 @@
  * /areas/search/{areaName}:
  *   get:
  *     tags:
- *       - 동네 검색
- *     name: Get area
- *     summary: Get area
+ *       - areas
+ *     name: 동네 목록을 가져옵니다.
+ *     summary: 동네 목록을 가져옵니다.
  *     parameters:
  *       - name: areaName
  *         in: path
@@ -14,8 +14,8 @@
  *         type: string
  *     responses:
  *       '200':
- *         description: Get area
+ *         description: 동네 목록을 가져왔습니다.
  *       '404':
- *         description: fail
+ *         description: 동네 목록을 가져오는데 실패했습니다.
  *
  */
