@@ -21,9 +21,9 @@ module.exports.insertUserInfo = async (connection, options) => {
   return await db.query(connection, { query: query, values: values });
 };
 
-module.exports.updateUserInfo = async (connection, options) => {
+module.exports.updateUserInfo = async (connection, options, reqUserID) => {
   let query = "UPDATE users SET ? WHERE user_id = ?";
-  let values = [options, options.user_id];
+  let values = [options, reqUserID];
   return await db.query(connection, { query: query, values: values });
 };
 
