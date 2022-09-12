@@ -48,8 +48,8 @@
  *   get:
  *     tags:
  *       - myAreas
- *     name: user_id로 회원 동네 검색
- *     summary: user_id로 회원 동네 검색
+ *     name: user_id로 회원의 등록된 동네 정보를 가져옵니다.
+ *     summary: user_id로 회원의 등록된 동네 정보를 가져옵니다.
  *     parameters:
  *       - name: user_id
  *         in: path

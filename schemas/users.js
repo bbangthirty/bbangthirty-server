@@ -119,8 +119,8 @@
  *   get:
  *     tags:
  *       - users
- *     name: user_mail로 회원 검색
- *     summary: user_mail로 회원 검색
+ *     name: user_mail로 회원 정보를 가져옵니다.
+ *     summary: user_mail로 회원 정보를 가져옵니다.
  *     parameters:
  *       - name: user_mail
  *         in: query
@@ -136,8 +136,8 @@
  *   get:
  *     tags:
  *       - users
- *     name: user_id로 회원 검색
- *     summary: user_id로 회원 검색
+ *     name: user_id로 회원 정보를 가져옵니다.
+ *     summary: user_id로 회원 정보를 가져옵니다.
  *     parameters:
  *       - name: user_id
  *         in: path
