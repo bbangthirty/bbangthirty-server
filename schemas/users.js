@@ -119,30 +119,25 @@
  *   get:
  *     tags:
  *       - users
- *     name: user_mail로 회원 정보를 가져옵니다.
- *     summary: user_mail로 회원 정보를 가져옵니다.
- *     parameters:
- *       - name: user_mail
- *         in: query
- *         required: true
- *         type: string
+ *     name: 회원 정보를 가져옵니다.
+ *     summary: 회원 정보를 가져옵니다.
  *     responses:
  *       '200':
  *         description: Get User
  *       '404':
  *         description: fail
  *
- * /users/{user_id}:
+ * /users/{user_mail}:
  *   get:
  *     tags:
  *       - users
- *     name: user_id로 회원 정보를 가져옵니다.
- *     summary: user_id로 회원 정보를 가져옵니다.
+ *     name: 메일로 회원 정보를 가져옵니다.
+ *     summary: 메일로 회원 정보를 가져옵니다.
  *     parameters:
- *       - name: user_id
+ *       - name: user_mail
  *         in: path
  *         required: true
- *         type: number
+ *         type: string
  *     responses:
  *       '200':
  *         description: Get User
