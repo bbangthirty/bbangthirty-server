@@ -9,14 +9,27 @@ const s3 = new aws.S3({
   region: "ap-northeast-2",
 });
 
-module.exports.upload = multer({
+module.exports.profileImg_upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: "bbangthirty",
     contentType: multerS3.AUTO_CONTENT_TYPE,
-    // acl: "public-read",
+    acl: "public-read",
     key: (req, file, cb) => {
       cb(null, `profileImg/${Date.now()}_${path.basename(file.originalname)}`);
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+module.exports.bakeryImg_upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "bbangthirty",
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    acl: "public-read",
+    key: (req, file, cb) => {
+      cb(null, `bakeryImg/${Date.now()}_${path.basename(file.originalname)}`);
     },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
