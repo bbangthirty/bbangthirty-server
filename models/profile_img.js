@@ -13,7 +13,7 @@ module.exports.getImgPath = async (connection, options) => {
 };
 
 module.exports.deleteImgPath = async (connection, options) => {
-  let query = "UPDATE users SET profile_img = null WHERE user_id = ?";
+  let query = `UPDATE users SET profile_img = null WHERE user_id = ?`;
   let values = options;
   return await db.query(connection, { query: query, values: values });
 };

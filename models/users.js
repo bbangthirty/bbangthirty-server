@@ -16,19 +16,31 @@ module.exports.getUserList = async (connection, options) => {
 };
 
 module.exports.insertUserInfo = async (connection, options) => {
-  let query = "INSERT INTO users SET ?";
+  let query = `INSERT INTO users SET ?`;
   let values = options;
   return await db.query(connection, { query: query, values: values });
 };
 
 module.exports.updateUserInfo = async (connection, options, reqUserID) => {
-  let query = "UPDATE users SET ? WHERE user_id = ?";
+  let query = `UPDATE users SET ? WHERE user_id = ?`;
   let values = [options, reqUserID];
   return await db.query(connection, { query: query, values: values });
 };
 
 module.exports.deleteUserInfo = async (connection, options) => {
-  let query = "UPDATE users SET deleted_at = now() WHERE user_id = ?";
+  let query = `UPDATE users SET deleted_at = now() WHERE user_id = ?`;
   let values = options.user_id;
+  return await db.query(connection, { query: query, values: values });
+};
+
+module.exports.updateRoleAsOwner = async (connection, options) => {
+  let query = `UPDATE users SET role = "owner" WHERE user_id = ?`;
+  let values = options;
+  return await db.query(connection, { query: query, values: values });
+};
+
+module.exports.updateRoleAsUser = async (connection, options) => {
+  let query = `UPDATE users SET role = "user" WHERE user_id = ?`;
+  let values = options;
   return await db.query(connection, { query: query, values: values });
 };
