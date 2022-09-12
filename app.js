@@ -15,12 +15,13 @@ if (process.env.NODE_ENV === "dev") {
 const indexRouter = require("./routes/index");
 const areasRouter = require("./routes/areas");
 const usersRouter = require("./routes/users");
-const myAreasRouter = require("./routes/myAreas");
+const myAreasRouter = require("./routes/my_areas");
 const profileImgRouter = require("./routes/profile_img");
 const ownersRouter = require("./routes/owners");
 const bakeriesRouter = require("./routes/bakeries");
 const bakeryImgRouter = require("./routes/bakery_img");
 const adminsRouter = require("./routes/admins");
+const fvBreadsRouter = require("./routes/fv_breads");
 const passsportConfing = require("./components/passport");
 
 const app = express();
@@ -100,6 +101,7 @@ app.use("/owners", ownersRouter);
 app.use("/bakeries", bakeriesRouter);
 app.use("/bakeryImg", bakeryImgRouter);
 app.use("/admins", adminsRouter);
+app.use("/fvBreads", fvBreadsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
