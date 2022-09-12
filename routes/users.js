@@ -6,7 +6,7 @@ const crypto = require("../components/crypto");
 const passport = require("passport");
 const { isLoggedIn, isNotLoggedIn } = require("../components/middlewares");
 
-// 회원가입
+// 일반 유저 회원가입
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
   try {
     const { user_info } = req.body;
