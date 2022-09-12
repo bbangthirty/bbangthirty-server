@@ -16,6 +16,7 @@ const indexRouter = require("./routes/index");
 const areasRouter = require("./routes/areas");
 const usersRouter = require("./routes/users");
 const myAreasRouter = require("./routes/myAreas");
+const profileImgRouter = require("./routes/profile_img");
 const passsportConfing = require("./components/passport");
 
 const app = express();
@@ -90,6 +91,7 @@ app.use("/", indexRouter);
 app.use("/areas", areasRouter);
 app.use("/users", usersRouter);
 app.use("/myAreas", myAreasRouter);
+app.use("/profileImg", profileImgRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
