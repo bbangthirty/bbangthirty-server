@@ -17,6 +17,10 @@ const areasRouter = require("./routes/areas");
 const usersRouter = require("./routes/users");
 const myAreasRouter = require("./routes/myAreas");
 const profileImgRouter = require("./routes/profile_img");
+const ownersRouter = require("./routes/owners");
+const bakeriesRouter = require("./routes/bakeries");
+const bakeryImgRouter = require("./routes/bakery_img");
+const adminsRouter = require("./routes/admins");
 const passsportConfing = require("./components/passport");
 
 const app = express();
@@ -92,6 +96,10 @@ app.use("/areas", areasRouter);
 app.use("/users", usersRouter);
 app.use("/myAreas", myAreasRouter);
 app.use("/profileImg", profileImgRouter);
+app.use("/owners", ownersRouter);
+app.use("/bakeries", bakeriesRouter);
+app.use("/bakeryImg", bakeryImgRouter);
+app.use("/admins", adminsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
