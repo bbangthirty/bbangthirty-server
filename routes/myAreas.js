@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const myAreas = require("../models/myAreas");
 const db = require("../components/db");
-const { isLoggedIn, isNotLoggedIn } = require("../components/middlewares");
+const { isLoggedIn } = require("../components/middlewares");
 
 // 유저의 등록된 동네 가져오기
-router.get("/:user_id", async function (req, res, next) {
+router.get("/:user_id", isLoggedIn, async function (req, res, next) {
   try {
     const { user_id } = req.params;
     const connection = await db.getConnection();
@@ -22,7 +22,7 @@ router.get("/:user_id", async function (req, res, next) {
 });
 
 // 동네 등록
-router.post("/", async (req, res, next) => {
+router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const user_id = req.user[0].user_id;
     const { area_id } = req.body;
@@ -39,7 +39,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // 동네 등록 취소
-router.delete("/:my_area_id", async (req, res, next) => {
+router.delete("/:my_area_id", isLoggedIn, async (req, res, next) => {
   try {
     const { my_area_id } = req.params;
     const connection = await db.getConnection();
