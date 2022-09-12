@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const myAreas = require("../models/myAreas");
+const myAreas = require("../models/my_areas");
 const db = require("../components/db");
 const { isLoggedIn } = require("../components/middlewares");
 
 // 유저의 등록된 동네 가져오기
-router.get("/:user_id", isLoggedIn, async function (req, res, next) {
+router.get("/", isLoggedIn, async function (req, res, next) {
   try {
-    const { user_id } = req.params;
+    const user_id = req.user[0].user_id;
     const connection = await db.getConnection();
     const areaList = await myAreas.getAreaList(connection, {
       user_id: user_id,
@@ -22,10 +22,10 @@ router.get("/:user_id", isLoggedIn, async function (req, res, next) {
 });
 
 // 동네 등록
-router.post("/", isLoggedIn, async (req, res, next) => {
+router.post("/:area_id", isLoggedIn, async (req, res, next) => {
   try {
     const user_id = req.user[0].user_id;
-    const { area_id } = req.body;
+    const { area_id } = req.params;
     const registArea = { user_id: user_id, area_id: area_id };
     const connection = await db.getConnection();
     await db.beginTransaction(connection);
@@ -54,4 +54,5 @@ router.delete("/:my_area_id", isLoggedIn, async (req, res, next) => {
     next();
   }
 });
+
 module.exports = router;

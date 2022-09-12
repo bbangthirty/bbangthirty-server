@@ -125,9 +125,9 @@ router.delete("/:user_id", isLoggedIn, async (req, res, next) => {
 });
 
 // user_id로 회원 검색
-router.get("/:user_id", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-    const { user_id } = req.params;
+    const user_id = req.user[0].user_id;
     const connection = await db.getConnection();
     const userList = await users.getUserList(connection, { user_id: user_id });
     console.log("userList ", userList);
@@ -148,9 +148,9 @@ router.get("/:user_id", async (req, res, next) => {
 });
 
 //  user_mail로 회원 검색
-router.get("/", async (req, res, next) => {
+router.get("/:user_mail", async (req, res, next) => {
   try {
-    const { user_mail } = req.query;
+    const { user_mail } = req.params;
     const connection = await db.getConnection();
     const userList = await users.getUserList(connection, {
       user_mail: user_mail,
