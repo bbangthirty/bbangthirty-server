@@ -35,6 +35,8 @@ module.exports.getOwnerBakeryList = async (connection, options) => {
   return await db.query(connection, { query: query, values: values });
 };
 
+//
+
 module.exports.getBakeryInfo = async (connection, options) => {
   let query = `SELECT * FROM bakeries WHERE bakery_id = ?`;
   let values = options;
