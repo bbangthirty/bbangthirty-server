@@ -34,3 +34,15 @@ module.exports.getOwnerBakeryList = async (connection, options) => {
   let values = options;
   return await db.query(connection, { query: query, values: values });
 };
+
+module.exports.getBakeryInfo = async (connection, options) => {
+  let query = `SELECT * FROM bakeries WHERE bakery_id = ?`;
+  let values = options;
+  return await db.query(connection, { query: query, values: values });
+};
+
+module.exports.updateBakeryInfo = async (connection, options) => {
+  let query = `UPDATE bakeries SET ? WHERE bakery_id = ?`;
+  let values = [options, options.bakery_id];
+  return await db.query(connection, { query: query, values: values });
+};
