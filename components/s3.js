@@ -35,6 +35,19 @@ module.exports.bakeryImg_upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
+module.exports.feedImg_upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "bbangthirty",
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    acl: "public-read",
+    key: (req, file, cb) => {
+      cb(null, `feedImg/${Date.now()}_${path.basename(file.originalname)}`);
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
+
 module.exports.s3 = new aws.S3({
   accessKeyId: process.env.S3_ACCESS_KEY_ID,
   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
