@@ -22,6 +22,8 @@ const bakeriesRouter = require("./routes/bakeries");
 const bakeryImgRouter = require("./routes/bakery_img");
 const adminsRouter = require("./routes/admins");
 const fvBreadsRouter = require("./routes/fv_breads");
+const feedsRouter = require("./routes/feeds");
+const feedImgRouter = require("./routes/feed_img");
 const passsportConfing = require("./components/passport");
 
 const app = express();
@@ -37,6 +39,7 @@ passsportConfing();
 // swagger
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
+const { application } = require("express");
 let host;
 if (process.env.NODE_ENV === "dev") {
   host = "localhost:3000";
@@ -102,6 +105,8 @@ app.use("/bakeries", bakeriesRouter);
 app.use("/bakeryImg", bakeryImgRouter);
 app.use("/admins", adminsRouter);
 app.use("/fvBreads", fvBreadsRouter);
+app.use("/feeds", feedsRouter);
+app.use("/feedImg", feedImgRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
