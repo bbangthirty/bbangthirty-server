@@ -24,6 +24,8 @@ const adminsRouter = require("./routes/admins");
 const fvBreadsRouter = require("./routes/fv_breads");
 const feedsRouter = require("./routes/feeds");
 const feedImgRouter = require("./routes/feed_img");
+const noticesRouter = require("./routes/notices");
+const fvBakeriesRouter = require("./routes/fv_bakeries");
 const passsportConfing = require("./components/passport");
 
 const app = express();
@@ -107,6 +109,8 @@ app.use("/admins", adminsRouter);
 app.use("/fvBreads", fvBreadsRouter);
 app.use("/feeds", feedsRouter);
 app.use("/feedImg", feedImgRouter);
+app.use("/notices", noticesRouter);
+app.use("/fvBakeries", fvBakeriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
