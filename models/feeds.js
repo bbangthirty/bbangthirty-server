@@ -6,9 +6,10 @@ module.exports.registFeed = async (connection, options) => {
   return await db.query(connection, { query: query, values: values });
 };
 
-module.exports.getTodayFeedInfo = async (connection, options) => {
-  let query = `SELECT * FROM feeds WHERE DATE(created_at) = DATE(now()) `;
-  return await db.query(connection, { query: query });
+module.exports.getMyStoreFeedToday = async (connection, options) => {
+  let query = `SELECT * FROM feeds WHERE bakery_id = ? and DATE(created_at) = DATE(now())`;
+  let values = options;
+  return await db.query(connection, { query: query, values: values });
 };
 
 module.exports.updateFeedInfo = async (connection, options) => {
@@ -38,5 +39,21 @@ module.exports.deleteFeed = async (connection, options) => {
 module.exports.getFeedAll = async (connection, options) => {
   let query = `SELECT * FROM feeds WHERE bakery_id = ?`;
   let values = options;
+  return await db.query(connection, { query: query, values: values });
+};
+
+module.exports.getFeedAllToday = async (connection, options) => {
+  let query = `SELECT * FROM feeds WHERE DATE(created_at) = DATE(now())`;
+  return await db.query(connection, { query: query });
+};
+
+module.exports.getAreaFeedsToday = async (
+  connection,
+  sido_name,
+  sigg_name,
+  emd_name
+) => {
+  let query = `SELECT * FROM feeds t1, bakeries t2, bakery_address t3 WHERE t3.sido_name = ? and t3.sigg_name = ? and t3.emd_name = ? and t3.bakery_addr_id = t2.bakery_id and t1.bakery_id = t2.bakery_id and DATE(t1.created_at) = DATE(now())`;
+  let values = [sido_name, sigg_name, emd_name];
   return await db.query(connection, { query: query, values: values });
 };
