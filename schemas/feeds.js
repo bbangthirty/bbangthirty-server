@@ -22,7 +22,7 @@
  *                       "feed_img" : "",
  *                       "feed_endtime" : "22:00",
  *                       "discount" : "20",
- *                       "breads" : "소보루, 피자빵"
+ *                       "breads" : "소보루,피자빵"
  *                     }
  *               }
  *     responses:
@@ -34,13 +34,18 @@
  *   get:
  *     tags:
  *       - feeds
- *     name: 빵떠리 당일 등록한 피드 정보를 가져옵니다.
- *     summary: 빵떠리 당일 등록한 피드 정보를 가져옵니다.
+ *     name: 빵떠리 당일 등록한 우리 가게 피드를 가져옵니다.
+ *     summary: 빵떠리 당일 등록한 우리 가게 피드를 가져옵니다.
+ *     parameters:
+ *       - name: bakery_id
+ *         in: query
+ *         description:
+ *         required: true
  *     responses:
  *       '200':
- *         description: 당일 등록한 피드 정보 가져오기 완료
+ *         description: 당일 등록한 우리 가게 피드 가져오기 완료
  *       '404':
- *         description: 당일 등록한 피드 정보 가져오기  실패
+ *         description: 당일 등록한 우리 가게 피드 가져오기  실패
  *
  *   put:
  *     tags:
@@ -60,10 +65,10 @@
  *               {
  *                   "feed_info" : {
  *                       "feed_id" : 2,
- *                       "lose_bread_img" : "",
+ *                       "feed_img" : "",
  *                       "feed_endtime" : "22:00",
  *                       "discount" : "20",
- *                       "breads" : "소보루, 피자빵"
+ *                       "breads" : "소보루,피자빵"
  *                     }
  *               }
  *     responses:
@@ -139,4 +144,78 @@
  *         description: 빵떠리 히스토리 가져오기 완료
  *       '404':
  *         description: 빵떠리 히스토리 가져오기 실패
+ *
+ * /feeds/all:
+ *    get:
+ *     tags:
+ *       - feeds
+ *     name: 당일 등록된 빵떠리의 모든 피드를 가져옵니다.
+ *     summary: 당일 등록된 빵떠리의 모든 피드를 가져옵니다.
+ *     responses:
+ *       '200':
+ *         description: 당일 등록된 빵떠리의 모든 피드 가져오기 완료
+ *       '404':
+ *         description: 당일 등록된 빵떠리의 모든 피드 가져오기 실패
+ *
+ * /feeds/breadName/{bread_name}:
+ *   get:
+ *     tags:
+ *       - feeds
+ *     name: 관심빵 태그를 클릭하면 태그명이 포함된 피드를 보여줍니다.
+ *     summary: 관심빵 태그를 클릭하면 태그명이 포함된 피드를 보여줍니다.
+ *     parameters:
+ *       - name: bread_name
+ *         in: path
+ *         description:
+ *         required: true
+ *     responses:
+ *       '200':
+ *         description: 관심빵 태그로 필터링된 피드 가져오기 완료
+ *       '404':
+ *         description: 관심빵 태그로 필터링된 피드 가져오기  실패
+ *
+ * /feeds/myArea:
+ *   get:
+ *     tags:
+ *       - feeds
+ *     name: 회원 - 등록된 동네의 피드를 가져옵니다.
+ *     summary: 회원 - 등록된 동네의 피드를 가져옵니다.
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         description: /myAreas api results 그대로 사용하면 됨
+ *         required: true
+ *         schema:
+ *           type: object
+ *           example:
+ *               {
+ *                  "sido_name" : "경기도",
+ *                  "sigg_name" : "안양시 동안구",
+ *                  "emd_name" : "호계동"
+ *               }
+ *     responses:
+ *       '200':
+ *         description: 등록된 동네의 피드 가져오기 완료
+ *       '404':
+ *         description: 등록된 동네의 피드 가져오기  실패
+ *
+ * /area/{area_id}:
+ *   get:
+ *     tags:
+ *       - feeds
+ *     name: 비회원 - 검색 설정한 동네 피드를 가져옵니다.
+ *     summary: 비회원 - 검색 설정한 동네 피드를 가져옵니다.
+ *     parameters:
+ *       - name: area_id
+ *         in: path
+ *         description:
+ *         required: true
+ *     responses:
+ *       '200':
+ *         description: 검색 설정한 동네 피드 가져오기 완료
+ *       '404':
+ *         description: 검색 설정한 동네 피드 가져오기  실패
+ *
  */
