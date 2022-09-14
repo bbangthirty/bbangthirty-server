@@ -19,3 +19,9 @@ module.exports.areaListByName = async (connection, options) => {
   }
   return await db.query(connection, { query: query, values: values });
 };
+
+module.exports.getAreaInfo = async (connection, options) => {
+  let query = `SELECT * FROM areas WHERE area_id = ?`;
+  let values = options;
+  return await db.query(connection, { query: query, values: values });
+};
