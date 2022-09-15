@@ -201,7 +201,7 @@
  *       '404':
  *         description: 등록된 동네의 피드 가져오기  실패
  *
- * /area/{area_id}:
+ * /feeds/area/{area_id}:
  *   get:
  *     tags:
  *       - feeds
@@ -218,4 +218,15 @@
  *       '404':
  *         description: 검색 설정한 동네 피드 가져오기  실패
  *
+ * /feeds/fvBakery:
+ *   get:
+ *     tags:
+ *       - feeds
+ *     name: 단골빵집의 피드를 가져옵니다.
+ *     summary: 단골빵집의 피드를 가져옵니다.
+ *     responses:
+ *       '200':
+ *         description: 단골빵집 피드 가져오기 완료
+ *       '404':
+ *         description: 단골빵집 피드 가져오기  실패
  */
