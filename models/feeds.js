@@ -47,13 +47,32 @@ module.exports.getFeedAllToday = async (connection, options) => {
   return await db.query(connection, { query: query });
 };
 
+// 비회원 - 검색 설정한 동네 피드 보여주기
 module.exports.getAreaFeedsToday = async (
   connection,
   sido_name,
   sigg_name,
   emd_name
 ) => {
-  let query = `SELECT * FROM feeds t1, bakeries t2, bakery_address t3 WHERE t3.sido_name = ? and t3.sigg_name = ? and t3.emd_name = ? and t3.bakery_addr_id = t2.bakery_id and t1.bakery_id = t2.bakery_id and DATE(t1.created_at) = DATE(now())`;
+  let query = `SELECT t1.*, t2.bakery_name FROM feeds t1, bakeries t2, bakery_address t3 WHERE t3.sido_name = ? and t3.sigg_name = ? and t3.emd_name = ? and t3.bakery_addr_id = t2.bakery_id and t1.bakery_id = t2.bakery_id and DATE(t1.created_at) = DATE(now())`;
   let values = [sido_name, sigg_name, emd_name];
   return await db.query(connection, { query: query, values: values });
+};
+
+// 회원용 - 등록된 동네 피드 보여주기
+module.exports.getMemberAreaFeedsToday = async (
+  connection,
+  user_id,
+  sido_name,
+  sigg_name,
+  emd_name
+) => {
+  let query = `SELECT t1.*, t2.bakery_name, t4.*  FROM feeds t1, bakeries t2, bakery_address t3, (SELECT * FROM fv_bakeries WHERE user_id = ?) t4 WHERE t3.sido_name = ? and t3.sigg_name = ? and t3.emd_name = ? and t3.bakery_addr_id = t2.bakery_addr_id and t1.bakery_id = t2.bakery_id and t4.bakery_id = t2.bakery_id and DATE(t1.created_at) = DATE(now())`;
+  let values = [user_id, sido_name, sigg_name, emd_name];
+  return await db.query(connection, { query: query, values: values });
+};
+
+module.exports.getFvBakeryFeedsToday = async (connection, options) => {
+  let query = `SELECT * FROM feeds t1, bakeries t2, (SELECT * FROM fv_bakeries WHERE user_id = ${options}) t3 WHERE t3.bakery_id = t2.bakery_id and t2.bakery_id = t1.bakery_id and DATE(t1.created_at) = DATE(now())`;
+  return await db.query(connection, { query: query });
 };
