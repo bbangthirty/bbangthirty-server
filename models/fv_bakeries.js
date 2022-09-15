@@ -18,10 +18,3 @@ module.exports.unLikeBakery = async (connection, options) => {
   let values = [options.user_id, options.bakery_id];
   return await db.query(connection, { query: query, values: values });
 };
-
-// module.exports.getLikedBakeryList = async (connection, options) => {
-//   let query = `SELECT * FROM fv_bakeries WHERE user_id = ?`;
-//   let values = options;
-//   4;
-//   return await db.query(connection, { query: query, values: values });
-// };
