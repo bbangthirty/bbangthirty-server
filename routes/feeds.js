@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const feeds = require("../models/feeds");
 const areas = require("../models/areas");
+const fv_bakeries = require("../models/fv_bakeries");
 const db = require("../components/db");
 const { isLoggedIn, isNotLoggedIn } = require("../components/middlewares");
 
@@ -153,10 +154,12 @@ router.get("/breadName/:bread_name", isLoggedIn, async (req, res, next) => {
 // 등록된 동네의 피드 가져오기
 router.get("/myArea", isLoggedIn, async (req, res, next) => {
   try {
+    const user_id = req.user[0].user_id;
     const { sido_name, sigg_name, emd_name } = req.body;
     const connection = await db.getConnection();
-    const results = await feeds.getAreaFeedsToday(
+    const results = await feeds.getMemberAreaFeedsToday(
       connection,
+      user_id,
       sido_name,
       sigg_name,
       emd_name
@@ -190,4 +193,17 @@ router.get("/area/:area_id", isNotLoggedIn, async (req, res, next) => {
 });
 
 // 단골빵집 피드 가져오기
+router.get("/fvBakery", isLoggedIn, async (req, res, next) => {
+  try {
+    const user_id = req.user[0].user_id;
+    const connection = await db.getConnection();
+    const results = await feeds.getFvBakeryFeedsToday(connection, user_id);
+    connection.release();
+    res.status(200).json({ results });
+  } catch (err) {
+    console.log("get feed error : ", err);
+    next();
+  }
+});
+
 module.exports = router;
