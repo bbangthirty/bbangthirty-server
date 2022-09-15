@@ -144,4 +144,27 @@
  *       '404':
  *         description: fail
  *
+ * /users/kakao:
+ *   get:
+ *     tags:
+ *       - users
+ *     name: 카카오 로그인 -> 카카오톡 홈페이지 이동
+ *     summary: 카카오 로그인 -> 카카오톡 홈페이지 이동
+ *     responses:
+ *       '200':
+ *         description: 카카오 로그인 성공
+ *       '404':
+ *         description: 카카오 로그인 실패
+ *
+ * /users/kakao/callback:
+ *   get:
+ *     tags:
+ *       - users
+ *     name: 카카오톡 홈페이지에서 로그인하고 콜백받아서 돌아옵니다.
+ *     summary: 카카오톡 홈페이지에서 로그인하고 콜백받아서 돌아옵니다.
+ *     responses:
+ *       '200':
+ *         description: Get User
+ *       '404':
+ *         description: fail
  */
