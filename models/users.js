@@ -44,3 +44,9 @@ module.exports.updateRoleAsUser = async (connection, options) => {
   let values = options;
   return await db.query(connection, { query: query, values: values });
 };
+
+module.exports.updateRoleAsAlba = async (connection, options) => {
+  let query = `UPDATE users SET role = "alba" WHERE user_id = ?`;
+  let values = options;
+  return await db.query(connection, { query: query, values: values });
+};
