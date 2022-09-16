@@ -26,6 +26,9 @@ const feedsRouter = require("./routes/feeds");
 const feedImgRouter = require("./routes/feed_img");
 const noticesRouter = require("./routes/notices");
 const fvBakeriesRouter = require("./routes/fv_bakeries");
+const pwdAuthRouter = require("./routes/pwd_auth");
+const albaAuthRouter = require("./routes/alba_auth");
+const albasRouter = require("./routes/albas");
 const passsportConfing = require("./components/passport");
 
 const app = express();
@@ -111,6 +114,9 @@ app.use("/feeds", feedsRouter);
 app.use("/feedImg", feedImgRouter);
 app.use("/notices", noticesRouter);
 app.use("/fvBakeries", fvBakeriesRouter);
+app.use("/pwdAuth", pwdAuthRouter);
+app.use("/albaAuth", albaAuthRouter);
+app.use("/albas", albasRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
