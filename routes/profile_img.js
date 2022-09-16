@@ -17,7 +17,7 @@ router.post(
       const imgPath = req.file.location;
       const connection = await db.getConnection();
       await db.beginTransaction(connection);
-      await profile_img.insertImgPath(connection, imgPath, user_id);
+      await profile_img.insertImgPath(connection, imgPath, user_id); // db s3 path 저장
       await db.commit(connection);
       res.status(200).json({ url: imgPath });
     } catch (err) {
@@ -39,12 +39,14 @@ router.put(
       const imgPath = req.file.location;
       const connection = await db.getConnection();
       await db.beginTransaction(connection);
-      const originImgPath = await profile_img.getImgPath(connection, user_id);
-      await profile_img.insertImgPath(connection, imgPath, user_id);
+      const originImgPath = await profile_img.getImgPath(connection, user_id); // DB에 있는 s3 이미지 path 가져오기 ex) profile_img: 'https://bbangthirty.s3.ap-northeast-2.amazonaws.com/profileImg/1663333091733_test4.JPG'
+      console.log("originImgPath :", originImgPath);
+      await profile_img.insertImgPath(connection, imgPath, user_id); // 기존 DB에 있는 s3 이미지 path를 새로운 s3 이미지 path로 업뎃 후
       await db.commit(connection);
       const ips = originImgPath[0].profile_img.split("/");
-      const originImgKey = `${ips[ips.length - 2]}/${ips[ips.length - 1]}`;
+      const originImgKey = `${ips[ips.length - 2]}/${ips[ips.length - 1]}`; // originImgKey: profileImg/1663333091733_test4.JPG
       console.log("originImgKey:", originImgKey);
+      // s3에 있는 이미지 삭제
       s3.s3.deleteObject(
         {
           Bucket: "bbangthirty",
@@ -81,6 +83,7 @@ router.delete("/", isLoggedIn, async (req, res, next) => {
     const ips = originImgPath[0].profile_img.split("/");
     const originImgKey = `${ips[ips.length - 2]}/${ips[ips.length - 1]}`;
     console.log("originImgKey:", originImgKey);
+    // s3에 있는 이미지 삭제
     s3.s3.deleteObject(
       {
         Bucket: "bbangthirty",
