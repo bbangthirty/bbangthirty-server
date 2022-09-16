@@ -59,4 +59,19 @@ router.delete("/:fv_bread_id", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 삭제했던 빵 목록 가져오기
+router.get("/deleted", isLoggedIn, async (req, res, next) => {
+  try {
+    const user_id = req.user[0].user_id;
+    const connection = await db.getConnection();
+    const results = await fvBreads.getDeletedFvBreadList(connection, user_id);
+    console.log(results);
+    connection.release();
+    res.status(200).json({ results });
+  } catch (err) {
+    console.log("get favorite bread error : ", err);
+    next();
+  }
+});
+
 module.exports = router;
