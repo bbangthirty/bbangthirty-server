@@ -58,4 +58,15 @@
  *       '404':
  *         description: 관심빵 삭제 실패
  *
+ * /fvBreads/deleted:
+ *   get:
+ *     tags:
+ *       - fvBreads
+ *     name: 삭제했던 빵 목록을 가져옵니다.
+ *     summary: 삭제했던 빵 목록을 가져옵니다.
+ *     responses:
+ *       '200':
+ *         description: 삭제했던 빵 목록 가져오기 완료
+ *       '404':
+ *         description: 삭제했던 빵 목록 가져오기 실패
  */

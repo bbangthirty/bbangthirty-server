@@ -19,6 +19,23 @@
  *       '404':
  *         description: 가게 정보 가져오기 실패
  *
+ *   delete:
+ *     tags:
+ *       - bakeries
+ *     name: 가게를 삭제합니다.
+ *     summary: 가게를 삭제합니다.
+ *     parameters:
+ *       - name: bakery_id
+ *         in: path
+ *         description:
+ *         required: true
+ *         type: number
+ *     responses:
+ *       '200':
+ *         description: 가게 삭제 완료
+ *       '404':
+ *         description: 가게 삭제 실패
+ *
  * /bakeries:
  *   put:
  *     tags:
