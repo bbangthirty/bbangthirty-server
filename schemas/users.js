@@ -28,7 +28,7 @@
  *                        user_nickname : "test",
  *                        user_mail : "test",
  *                        user_pwd : "test",
- *                        phone: "010-1234-1234"
+ *                        user_phone: "010-1234-1234"
  *                  }
  *               }
  *     responses:

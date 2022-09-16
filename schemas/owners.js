@@ -20,7 +20,8 @@
  *                 "owner_info" : {
  *                     "user_nickname" : "안양빵집사장",
  *                     "user_mail" : "anyang@gmail.com",
- *                     "user_pwd" : "1234"
+ *                     "user_pwd" : "1234",
+ *                     "user_phone": "010-1111-1111"
  *                  },
  *                 "bakery_info" : {
  *                     "bakery_name" : "안양빵집",
