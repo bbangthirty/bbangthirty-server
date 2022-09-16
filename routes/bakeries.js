@@ -42,4 +42,20 @@ router.put("/", isLoggedIn, async (req, res, next) => {
     next();
   }
 });
+
+// 가게 삭제
+router.delete("/:bakery_id", isLoggedIn, async (req, res, next) => {
+  try {
+    const { bakery_id } = req.params;
+    const connection = await db.getConnection();
+    await db.beginTransaction(connection);
+    const result = await albas.deleteBakery(connection, bakery_id);
+    await db.commit(connection);
+    res.status(200).json({ result });
+  } catch (err) {
+    console.log("delete bakery error : ", err);
+    next();
+  }
+});
+
 module.exports = router;

@@ -40,3 +40,9 @@ module.exports.updateBakeryInfo = async (connection, options) => {
   let values = [options, options.bakery_id];
   return await db.query(connection, { query: query, values: values });
 };
+
+module.exports.deleteBakery = async (connection, options) => {
+  let query = `DELETE FROM bakeries WHERE bakery_id = ?`;
+  let values = options;
+  return await db.query(connection, { query: query, values: values });
+};
