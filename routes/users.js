@@ -26,7 +26,7 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
     console.log("result: ", result);
     await db.commit(connection);
     // res.status(200).json({ result });
-    res.redirect("/");
+    res.redirect("/login");
   } catch (err) {
     console.log("join error : ", err);
     next();
