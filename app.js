@@ -35,7 +35,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: true,
+    origin: "http://localhost:8080",
     credentials: true,
   })
 );
@@ -97,7 +97,6 @@ app.use(
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
-      domain: ".localhost:8080",
       httpOnly: true,
       secure: false,
     },
