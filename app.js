@@ -99,8 +99,7 @@ app.use(
     cookie: {
       domain: ".localhost",
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: false,
     },
   })
 );
