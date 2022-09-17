@@ -91,8 +91,6 @@ app.use(
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
-      domain:
-        process.env.NODE_ENV === "dev" ? "52.78.52.247" : "localhost:8080",
       httpOnly: true,
       secure: false,
     },
