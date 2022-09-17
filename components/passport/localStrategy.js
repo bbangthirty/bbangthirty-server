@@ -17,7 +17,7 @@ module.exports = () => {
           const userList = await users.getUserList(connection, {
             user_mail: user_mail,
           });
-          connection.release;
+          connection.release();
           console.log(userList);
           if (!userList.length) {
             console.log("가입되지 않은 회원입니다");
