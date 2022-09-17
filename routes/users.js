@@ -25,8 +25,8 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
     const result = await users.insertUserInfo(connection, user_info);
     console.log("result: ", result);
     await db.commit(connection);
-    // res.status(200).json({ result });
-    res.redirect("/login");
+    res.status(200).json({ result });
+    // res.redirect("/login");
   } catch (err) {
     console.log("join error : ", err);
     next();
@@ -54,13 +54,13 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
         return next(loginError);
       }
       // 이쯤 숨겨진 과정 : 세션 쿠키를 브라우저로 보내준다.
-      // delete user.user_pwd;
-      // delete user.salt;
-      // delete user.created_at;
-      // delete user.updated_at;
-      // delete user.deleted_at;
-      // res.status(200).json({ result: user });
-      res.redirect("/");
+      delete user.user_pwd;
+      delete user.salt;
+      delete user.created_at;
+      delete user.updated_at;
+      delete user.deleted_at;
+      res.status(200).json({ result: user });
+      // res.redirect("/");
     });
   })(req, res, next); // 미들웨어 확장) 미들웨어 내의 미들웨어에는 (req, res, next)를 붙인다.
 });
