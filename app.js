@@ -98,9 +98,9 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      domain: ".bbangthirty.ml",
+      secure: false,
+      // sameSite: "none",
+      // domain: ".bbangthirty.ml",
     },
   })
 );
