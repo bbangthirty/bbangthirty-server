@@ -50,6 +50,7 @@ passsportConfing();
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 const { application } = require("express");
+const nodemon = require("nodemon");
 let host;
 if (process.env.NODE_ENV === "dev") {
   host = "localhost:3000";
@@ -97,8 +98,8 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
-      secure: false,
-      sameSite: "",
+      secure: true,
+      sameSite: "none",
     },
   })
 );
