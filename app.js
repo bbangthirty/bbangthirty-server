@@ -33,10 +33,15 @@ const passsportConfing = require("./components/passport");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+https: app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 passsportConfing();
@@ -84,7 +89,7 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
     resave: false,
