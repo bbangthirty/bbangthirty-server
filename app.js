@@ -90,7 +90,7 @@ app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser(process.env.COOKIE_SECRET)); // 서명된 쿠키를 사용하는 경우 매개변수에 비밀키를 넣어주면 검증을 한다
 app.use(
   session({
     resave: false,
@@ -98,7 +98,8 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: "none",
     },
   })
 );
