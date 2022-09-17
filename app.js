@@ -98,8 +98,8 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
-      secure: false,
-      // sameSite: "none",
+      secure: true,
+      sameSite: "none",
       // domain: ".bbangthirty.ml",
     },
   })
