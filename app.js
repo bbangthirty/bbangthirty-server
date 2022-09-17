@@ -97,9 +97,8 @@ app.use(
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      httpOnly: false,
+      secure: false,
     },
   })
 );
