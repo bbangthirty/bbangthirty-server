@@ -17,7 +17,8 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
     });
     console.log("userList: ", userList);
     if (userList.length) {
-      return res.redirect("/join?error=exist");
+      return res.status(404).json({ errorMessage: "Duplicate user_mail" });
+      // return res.redirect("/join?error=exist");
     }
     const { salt, encodedPw } = crypto.createPasswordPbkdf2(user_info.user_pwd);
     user_info.salt = salt;
@@ -43,7 +44,8 @@ router.post("/login", isNotLoggedIn, async (req, res, next) => {
       return next(authError);
     }
     if (!user) {
-      return res.redirect(`/login?error=${info.message}`);
+      return res.status(404).json({ errorMessage: `${info.message}` });
+      // return res.redirect(`/login?error=${info.message}`);
     }
     //passport.authenticate() 미들웨어는 req.login()을 자동으로 호출
     return req.login(user, async (loginError) => {
@@ -85,7 +87,7 @@ router.get("/logout", isLoggedIn, (req, res) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    res.status(200).json({ success: "logout completed" });
   });
 });
 
