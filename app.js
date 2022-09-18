@@ -100,7 +100,7 @@ app.use(
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: ".bbangthirty.ml",
+      domain: "localhost",
     },
   })
 );
