@@ -20,7 +20,7 @@ module.exports = () => {
             sns_id: profile.id,
             provider: "kakao",
           });
-          connection.release;
+          connection.release();
           let exUser = userList[0];
           console.log("exUser:", exUser);
           if (exUser) {
