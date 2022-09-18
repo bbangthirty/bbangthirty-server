@@ -35,7 +35,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://localhost:8080",
+    origin: true,
     credentials: true,
   })
 );
@@ -100,7 +100,7 @@ app.use(
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: "localhost",
+      domain: ".bbangthirty.ml",
     },
   })
 );
