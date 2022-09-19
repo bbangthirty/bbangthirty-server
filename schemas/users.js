@@ -16,7 +16,7 @@
  *         schema:
  *           type: object
  *           properties:
- *             user_nickname:
+ *             user_name:
  *               type: string
  *             user_mail:
  *               type: string
@@ -25,7 +25,7 @@
  *           example:
  *               {
  *                  "user_info" : {
- *                        user_nickname : "test",
+ *                        user_name : "test",
  *                        user_mail : "test",
  *                        user_pwd : "test",
  *                        user_phone: "010-1234-1234"
@@ -87,15 +87,11 @@
  *         required: true
  *         schema:
  *           type: object
- *           properties:
- *             user_nickname:
- *               type: string
- *             user_mail:
- *               type: string
  *           example:
  *               {
- *                 user_nickname : "test",
+ *                 user_name : "test",
  *                 user_mail : "test",
+ *                 user_phone : "test"
  *               }
  *     responses:
  *       '200':
