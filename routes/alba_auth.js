@@ -30,7 +30,7 @@ router.post("/invite/alba", isLoggedIn, async function (req, res, next) {
     await nodemailer.sendAlbaUrl(
       token,
       userData[0].user_mail,
-      userData[0].user_nickname,
+      userData[0].user_name,
       bakery_name,
       bakery_id
     );

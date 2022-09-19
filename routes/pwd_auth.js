@@ -30,7 +30,7 @@ router.post("/find/password", isNotLoggedIn, async function (req, res, next) {
     await nodemailer.sendPwdUrl(
       token,
       userData[0].user_mail,
-      userData[0].user_nickname
+      userData[0].user_name
     );
     await db.commit(connection);
     res.status(200).json({ TokenData });
