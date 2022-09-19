@@ -28,8 +28,9 @@ module.exports = () => {
           } else {
             // 없으면 빵떠리 회원가입 후 로그인
             const newUser = {
-              user_nickname: profile.displayName,
+              user_name: profile.displayName,
               user_mail: profile._json && profile._json.kakao_account_email,
+              user_phone: phone_number,
               provider: "kakao",
               snsId: profile.id,
             };
