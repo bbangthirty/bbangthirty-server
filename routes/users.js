@@ -96,8 +96,12 @@ router.put("/", isLoggedIn, async (req, res, next) => {
   console.log("req.isAuthenticated", req.isAuthenticated());
   console.log("req.user", req.user);
   try {
-    const { user_nickname, user_mail } = req.body; // body 통채로 받아서 넣으면 비번 강제 입력 공격에 위험할 것 같아서 이렇게 처리
-    const user_info = { user_nickname: user_nickname, user_mail: user_mail };
+    const { user_name, user_mail, user_phone } = req.body; // body 통채로 받아서 넣으면 비번 강제 입력 공격에 위험할 것 같아서 이렇게 처리
+    const user_info = {
+      user_name: user_name,
+      user_mail: user_mail,
+      user_phone: user_phone,
+    };
     const user_id = req.user[0].user_id;
     console.log(user_id);
     const connection = await db.getConnection();
