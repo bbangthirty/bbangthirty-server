@@ -101,7 +101,7 @@ app.use(
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: ".bbangthirty.ml", // 서브 도메인이 없기 때문에 생략(: 현재 문서 기준 도메인만 적용)
+      // domain: ".bbangthirty.ml", // 서브 도메인이 없기 때문에 생략(: 현재 문서 기준 도메인만 적용)
     },
   })
 );
