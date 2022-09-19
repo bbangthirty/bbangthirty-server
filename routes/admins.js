@@ -23,7 +23,7 @@ router.put("/approve", isLoggedIn, async (req, res, next) => {
     const connection = await db.getConnection();
     await db.beginTransaction(connection);
     await bakeries.approve(connection, bakery_id);
-    const bakeryInfo = await bakeries.getBakeryInfo(connection, bakery_id);
+    const bakeryInfo = await bakeries.getBakeryInfo(connection, bakery_id); // 이 부분 프론트에서 /bakeryForEntry 에서 가져온 데이터로 user_id 넣을 수 있는지 확인!
     const result = await users.updateRoleAsOwner(
       connection,
       bakeryInfo[0].user_id
