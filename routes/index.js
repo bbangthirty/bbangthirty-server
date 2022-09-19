@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", function (req, res, next) {
-  res.send("빵떠리 메인 페이지");
-});
+// router.get("/", function (req, res, next) {
+//   res.send("빵떠리 메인 페이지");
+// });
 
 module.exports = router;
 
