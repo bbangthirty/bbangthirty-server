@@ -3,7 +3,7 @@ const router = express.Router();
 const bakeries = require("../models/bakeries");
 const bakery_address = require("../models/bakery_address");
 const db = require("../components/db");
-const { isLoggedIn } = require("../components/middlewares");
+const { isLoggedIn, isNotLoggedIn } = require("../components/middlewares");
 
 // 가게 정보 불러오기
 router.get("/:bakery_id", isLoggedIn, async (req, res, next) => {
