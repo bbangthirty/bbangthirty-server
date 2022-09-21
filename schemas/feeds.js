@@ -229,4 +229,16 @@
  *         description: 단골빵집 피드 가져오기 완료
  *       '404':
  *         description: 단골빵집 피드 가져오기  실패
+ *
+ * /feeds/geolocation:
+ *   get:
+ *     tags:
+ *       - feeds
+ *     name: 비회원 메인페이지 geolocation 참조할 가게 정보, 피드, 위도-경도를 가져옵니다.
+ *     summary: 비회원 메인페이지 geolocation 참조할 가게 정보, 피드, 위도-경도를 가져옵니다.
+ *     responses:
+ *       '200':
+ *         description: 가게 정보 가져오기 완료
+ *       '404':
+ *         description: 가게 정보 가져오기 실패
  */

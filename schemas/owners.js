@@ -31,7 +31,9 @@
  *                     "detail_address" : "1동 302호",
  *                     "sido_name" : "안양시",
  *                     "sigg_name" : "동안구",
- *                     "emd_name" : "호계동"
+ *                     "emd_name" : "호계동",
+ *                     "latitude" : "test",
+ *                     "longitude" : "test"
  *                 }
  *               }
  *     responses:
