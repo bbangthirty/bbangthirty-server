@@ -24,7 +24,7 @@ module.exports.disApprove = async (connection, options) => {
 };
 
 module.exports.getBakeryInfo = async (connection, options) => {
-  let query = `SELECT t1.*, t2.jibun_address, t2.road_address, t2.detail_address FROM bakeries t1, bakery_address t2 WHERE t1.bakery_id = ? and t1.bakery_addr_id = t2.bakery_addr_id`;
+  let query = `SELECT t1.*, t2.jibun_address, t2.road_address, t2.detail_address, t2.latitude, t2.longitude FROM bakeries t1, bakery_address t2 WHERE t1.bakery_id = ? and t1.bakery_addr_id = t2.bakery_addr_id`;
   let values = options;
   return await db.query(connection, { query: query, values: values });
 };
