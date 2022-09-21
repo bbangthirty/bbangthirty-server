@@ -76,3 +76,9 @@ module.exports.getFvBakeryFeedsToday = async (connection, options) => {
   let query = `SELECT * FROM feeds t1, bakeries t2, (SELECT * FROM fv_bakeries WHERE user_id = ${options}) t3 WHERE t3.bakery_id = t2.bakery_id and t2.bakery_id = t1.bakery_id and DATE(t1.created_at) = DATE(now())`;
   return await db.query(connection, { query: query });
 };
+
+// 비회원 메인페이지 geolocation 참조할 가게 정보, 피드, 위도경도 불러오기
+module.exports.getFeedsByGeoInfo = async (connection, options) => {
+  let query = `SELECT t1.*, t2.bakery_name, t3.jibun_address, t3.road_address, t3.detail_address, t3.latitude, t3.longitude FROM feeds t1, bakeries t2, bakery_address t3 WHERE t2.bakery_addr_id = t3.bakery_addr_id and t2.bakery_id = t1.bakery_id`;
+  return await db.query(connection, { query: query });
+};
