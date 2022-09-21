@@ -60,10 +60,9 @@ router.post("/addBakery", isLoggedIn, async (req, res, next) => {
     const bakery_addr_id = bakery_addr_info.insertId;
     bakery_info.user_id = user_id;
     bakery_info.bakery_addr_id = bakery_addr_id;
-    await bakeries.insertBakeryInfo(connection, bakery_info);
+    const result = await bakeries.insertBakeryInfo(connection, bakery_info);
     await db.commit(connection);
-    // res.status(200).json({ result });
-    res.redirect("/");
+    res.status(200).json({ result });
   } catch (err) {
     console.log("post addBakery error : ", err);
     next();
