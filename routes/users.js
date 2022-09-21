@@ -131,9 +131,10 @@ router.delete("/:user_id", isLoggedIn, async (req, res, next) => {
 });
 
 // user_id로 회원 검색
-router.get("/", async (req, res, next) => {
+router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     const user_id = req.user[0].user_id;
+    console.log(user_id);
     const connection = await db.getConnection();
     const userList = await users.getUserList(connection, { user_id: user_id });
     console.log("userList ", userList);
