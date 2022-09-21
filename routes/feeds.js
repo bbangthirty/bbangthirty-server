@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const feeds = require("../models/feeds");
 const areas = require("../models/areas");
-const fv_bakeries = require("../models/fv_bakeries");
 const db = require("../components/db");
 const { isLoggedIn, isNotLoggedIn } = require("../components/middlewares");
 
@@ -206,4 +205,17 @@ router.get("/fvBakery", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 비회원 메인페이지 geolocation 참조할 가게 정보, 피드, 위도경도 불러오기
+router.get("/geolocation", isNotLoggedIn, async (req, res, next) => {
+  try {
+    const connection = await db.getConnection();
+    const results = await feeds.getFeedsByGeoInfo(connection);
+    console.log(results);
+    connection.release();
+    res.status(200).json({ results });
+  } catch (err) {
+    console.log("get bakery geo info error : ", err);
+    next();
+  }
+});
 module.exports = router;
