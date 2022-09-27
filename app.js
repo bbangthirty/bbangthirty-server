@@ -49,12 +49,10 @@ passsportConfing();
 // swagger
 const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
-const { application } = require("express");
-const nodemon = require("nodemon");
 let host;
 if (process.env.NODE_ENV === "dev") {
   host = "localhost:3000";
-} else host = "52.78.52.247";
+} else host = "bbangthirty.ml";
 
 const swaggerDefinition = {
   info: {
